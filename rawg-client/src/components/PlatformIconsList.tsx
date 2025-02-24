@@ -1,4 +1,4 @@
-import { HStack, Icon, Text } from "@chakra-ui/react";
+import { HStack, Icon } from "@chakra-ui/react";
 import { Platform } from "../hooks/useGames";
 import {
     FaWindows,
@@ -10,7 +10,7 @@ import {
    } from "react-icons/fa";
    import { MdPhoneIphone } from "react-icons/md";
    import { SiNintendo } from "react-icons/si";
-   import { BsGlobe } from "react-icons/bs";
+   
 
 interface Props {
     platforms: Platform[];
@@ -37,6 +37,8 @@ const PlatformIconsList = ({platforms}: Props) => {
             return MdPhoneIphone;
           case "nintendo":
             return SiNintendo;
+          default:
+            return undefined;
         }
       };
 
