@@ -1,4 +1,5 @@
 import useData from "./useData";
+import { Genre } from "./useGenres";
 
 export interface Game {
   id: number;
@@ -15,6 +16,8 @@ export interface Platform {
 }
 
 
-
-const useGames = () => useData<Game>("/games");
+//useGames is a custom hook that fetches games from the /games endpoint
+//it takes an optional selectedGenre parameter to filter games by genre
+//it also takes an optional dependencies parameter to refetch data when the selectedGenre changes
+const useGames = (selectedGenre: Genre | null) => useData<Game>("/games", {params: {genres: selectedGenre?.slug}}, [selectedGenre]);
 export default useGames;

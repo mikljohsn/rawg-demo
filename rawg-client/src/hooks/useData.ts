@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import { CanceledError } from "axios";
+import { AxiosRequestConfig, CanceledError } from "axios";
 
 
 interface Response<T> {
@@ -8,8 +8,8 @@ interface Response<T> {
     results: T[];
 }
 
-//usedata is a gneneric hook that fetches data from an endpoint and returns the data, error, and loading state
-const useData = <T>(endpoint: string) => {
+//usedata is a generic hook that fetches data from an endpoint and returns the data, error, and loading state
+const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, dependencies?: any[]) => {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +18,10 @@ const useData = <T>(endpoint: string) => {
     const controller = new AbortController();
     setIsLoading(true);
     apiClient
-      .get<Response<T>>(endpoint, { signal: controller.signal })
+      .get<Response<T>>(endpoint, { 
+        ...requestConfig,
+        signal: controller.signal
+       })
       .then((res) => {
         setData(res.data.results)
         setIsLoading(false);
@@ -30,7 +33,8 @@ const useData = <T>(endpoint: string) => {
       })
 
     return () => controller.abort();
-  }, []);
+  }, dependencies ? [...dependencies] : []
+);
 
   return { data, error, isLoading };
 };
