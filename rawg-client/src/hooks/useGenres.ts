@@ -1,39 +1,12 @@
-import { useEffect, useState } from "react";
-import apiClient from "../services/api-client";
-import { CanceledError } from "axios";
+import useData from "./useData";
 
-interface Genre {
+
+export interface Genre {
     id: number;
     name: string;
 }
 
-interface GenreResponse {
-    count: number;
-    results: Genre[];
-}
-const useGenres = () => {
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    setIsLoading(true);
-    apiClient
-      .get<GenreResponse>("/genres", { signal: controller.signal })
-      .then((res) => {
-        setGenres(res.data.results)
-        setIsLoading(false);
-      })
-      .catch((err) => {        
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setIsLoading(false);
-      })
-
-    return () => controller.abort();
-  }, []);
-
-  return { genres, error, isLoading };
-};
+const useGenres = () =>  useData<Genre>("/genres"); //pass the endpoint to the useData hook to fetch the genres from the useGenres hook
+//cleaner solution to fetch genres from the useGenres hook, so we don't need to specify the endpoint in the component, 
+// which should only be concerned with rendering the data
 export default useGenres;

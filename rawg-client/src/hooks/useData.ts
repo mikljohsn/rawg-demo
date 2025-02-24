@@ -7,6 +7,8 @@ interface Response<T> {
     count: number;
     results: T[];
 }
+
+//usedata is a gneneric hook that fetches data from an endpoint and returns the data, error, and loading state
 const useData = <T>(endpoint: string) => {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
