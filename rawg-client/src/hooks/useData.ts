@@ -33,7 +33,7 @@ const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, depend
       })
 
     return () => controller.abort();
-  }, dependencies ? [...dependencies] : []
+  }, dependencies ? [...dependencies] : [] //ternary operator that returns dependencies if they exist, otherwise returns an empty array
 );
 
   return { data, error, isLoading };
