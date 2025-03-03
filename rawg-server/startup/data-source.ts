@@ -1,9 +1,9 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Game } from "./entities/Game";
-import { Store } from "./entities/Store";
-import { Genre } from "./entities/Genre";
-import { ParentPlatform } from "./entities/ParentPlatform";
+import { Game } from "../entities/Game";
+import { Store } from "../entities/Store";
+import { Genre } from "../entities/Genre";
+import { ParentPlatform } from "../entities/ParentPlatform";
 import "dotenv/config";
 
 export const AppDataSource = new DataSource({
