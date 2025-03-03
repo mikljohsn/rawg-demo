@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
 import { Game } from "./Game";
 
-@Entity()
+@Entity("parent_platform")
 export class ParentPlatform {
     @PrimaryGeneratedColumn()
     id: number;
@@ -12,6 +12,6 @@ export class ParentPlatform {
     @Column()
     slug: string;
 
-    @ManyToMany(() => Game, game => game.parentPlatforms)
+    @ManyToMany(() => Game, game => game.parent_platforms)
     games?: Game[];
 }
