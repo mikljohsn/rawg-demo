@@ -14,6 +14,9 @@ export interface Game {
 //useGames is a custom hook that fetches games from the /games endpoint
 //it takes an optional selectedGenre parameter to filter games by genre
 //it also takes an optional dependencies parameter to refetch data when the selectedGenre changes
-const useGames = (selectedGenre: Genre | null, seletedPlatform: Platform | null, selectedStore: Store | null) =>
-  useData<Game>("/games", { params: { genres: selectedGenre?.slug, parent_platforms: seletedPlatform?.id, stores: selectedStore?.id} }, [selectedGenre, seletedPlatform, selectedStore]);
+const useGames = (selectedGenre: Genre | null,
+  seletedPlatform: Platform | null,
+  selectedStore: Store | null) =>
+  useData<Game>("/games", { params: { genres: selectedGenre?.slug, parent_platforms: seletedPlatform?.id, stores: selectedStore?.id } },
+    [selectedGenre, seletedPlatform, selectedStore]);
 export default useGames;
