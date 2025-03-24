@@ -7,7 +7,7 @@ import { ParentPlatform } from "../entities/ParentPlatform";
 import { SelectQueryBuilder } from "typeorm";
 
 //interface for response object matching what our rawg-client expects
-interface ModifinedGame {
+interface ModifiedGame {
   id: number;
   name: string;
   background_image?: string;
@@ -15,11 +15,14 @@ interface ModifinedGame {
   parent_platforms: { platform: ParentPlatform }[];
   genres: Genre[];
   stores: Store[];
+  rating?: number;
+  released?: string;
+  added?: number;
 }
 
 interface Response {
   count: number;
-  results: ModifinedGame[];
+  results: ModifiedGame[];
 }
 
 const gameRouter = Router();
@@ -79,6 +82,30 @@ const addParentPlatformFilter = (
   }
 };
 
+const addOrdering = (
+  queryBuilder: SelectQueryBuilder<Game>,
+  ordering: String | undefined
+) => {
+  if (ordering === "") {
+    queryBuilder.orderBy("game.rating", "DESC"); //simulating "relevance"
+  }
+  if (ordering === "-rating") {
+    queryBuilder.orderBy("game.rating", "DESC");
+  }
+  if (ordering === "-released") {
+    queryBuilder.orderBy("game.released", "DESC");
+  }
+  if (ordering === "name") {
+    queryBuilder.orderBy("game.name", "ASC");
+  }
+  if (ordering === "-added") {
+    queryBuilder.orderBy("game.added", "DESC");
+  }
+  if (ordering === "-metacritic") {
+    queryBuilder.orderBy("game.metacritic", "DESC");
+  }
+};
+
 function modifyGameResponse(games: Game[]) {
   return games.map((game) => ({
     ...game,
@@ -95,6 +122,8 @@ gameRouter.get("/", async (req, res) => {
     ? Number(req.query.parent_platforms)
     : undefined;
 
+    const ordering = req.query.ordering ? String(req.query.ordering) : undefined;
+
   //query builder to get all games with their genres, parent_platforms, and stores
   const queryBuilder = gameRepository
     .createQueryBuilder("game")
@@ -105,6 +134,7 @@ gameRouter.get("/", async (req, res) => {
   addGenreFilter(queryBuilder, genreSlug);
   addStoreFilter(queryBuilder, storeId);
   addParentPlatformFilter(queryBuilder, parentPlatformId);
+  addOrdering(queryBuilder, ordering);
 
   const games = await queryBuilder.getMany(); //execute query
 

@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     type: "mysql",
     url: process.env.CONNECTION_STRING,
     synchronize: false,  // Set to false in production, use migrations instead
-    logging: false,
+    logging: true,
     entities: [Game, Store, Genre, ParentPlatform],
     migrations: [],
     subscribers: [],
