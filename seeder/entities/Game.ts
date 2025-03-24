@@ -19,6 +19,15 @@ import {
   
     @Column({ nullable: true })
     metacritic?: number;
+
+    @Column({ nullable: true })
+    released?: string;
+
+    @Column({ type: "float", nullable: true })
+    rating?: number;
+
+    @Column({ nullable: true })
+    added?: number;
   
     @Column({ nullable: true })
     background_image?: string;
