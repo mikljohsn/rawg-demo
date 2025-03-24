@@ -18,7 +18,7 @@ export interface GameQuery {
   platform: Platform | null;
   store: Store | null;
   sortOrder: string;
-
+  searchText: string;
 }
 
 function App() {
@@ -33,6 +33,8 @@ function App() {
      setGameQuery({...gameQuery, store});
   const handleOnSelectSortOrder = (sortOrder: string) =>
      setGameQuery({...gameQuery, sortOrder});
+  const handleOnSearch = (searchText: string) =>
+     setGameQuery({...gameQuery, searchText: searchText});
 
  /*  const handleSelect = (key: keyof GameQuery, value: Genre | Platform | Store | null) => {
     setGameQuery({ ...gameQuery, [key]: value })}; */ //maytbe use this later
@@ -46,7 +48,7 @@ function App() {
       templateColumns={{ base: "1fr", lg: "200px 1fr" }}
     >
       <GridItem pl="2" area={"header"}>
-        <NavBar />
+        <NavBar onSearch={handleOnSearch} />
       </GridItem>
       <Show above="lg">
         <GridItem pl="2" area={"aside"}>

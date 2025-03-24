@@ -18,7 +18,8 @@ const useGames = (gameQuery: GameQuery) =>
       genres: gameQuery.genre?.slug,
       parent_platforms: gameQuery.platform?.id,
       stores: gameQuery.store?.id,
-      ordering: gameQuery.sortOrder
+      ordering: gameQuery.sortOrder,
+      search: gameQuery.searchText
     }
   },
     [gameQuery]);

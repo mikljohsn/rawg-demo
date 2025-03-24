@@ -106,6 +106,17 @@ const addOrdering = (
   }
 };
 
+const addSearch = (
+  queryBuilder: SelectQueryBuilder<Game>,
+  searchText: String | undefined
+) => {
+  if(searchText) {
+    queryBuilder.andWhere("LOWER(game.name) LIKE :searchText",
+      { searchText: `%${searchText}%` }
+    );
+  }
+};
+
 function modifyGameResponse(games: Game[]) {
   return games.map((game) => ({
     ...game,
@@ -123,6 +134,7 @@ gameRouter.get("/", async (req, res) => {
     : undefined;
 
     const ordering = req.query.ordering ? String(req.query.ordering) : undefined;
+    const search = req.query.search ? String(req.query.search) : undefined;
 
   //query builder to get all games with their genres, parent_platforms, and stores
   const queryBuilder = gameRepository
@@ -135,6 +147,7 @@ gameRouter.get("/", async (req, res) => {
   addStoreFilter(queryBuilder, storeId);
   addParentPlatformFilter(queryBuilder, parentPlatformId);
   addOrdering(queryBuilder, ordering);
+  addSearch(queryBuilder, search);
 
   const games = await queryBuilder.getMany(); //execute query
 
