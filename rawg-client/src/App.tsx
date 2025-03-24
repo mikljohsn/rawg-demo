@@ -1,13 +1,15 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
-import GenreList from "./components/GenreList";
 import { useState } from "react";
 import { Genre } from "./hooks/useGenres";
 import PlatformSelector from "./components/PlatformSelector";
 import { Platform } from "./hooks/usePlatforms";
 import { Store } from "./hooks/useStores";
-import StoreList from "./components/storeList";
+import useStores from "./hooks/useStores";
+import CustomList from "./components/CustomList";
+import useGenres from "./hooks/useGenres";
+
 
 
 export interface GameQuery {
@@ -44,12 +46,26 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem pl="2" area={"aside"}>
-          <GenreList onSelectedGenre={handleSelectedGenre}
-            selectedGenre={gameQuery.genre}
-          />
-          <StoreList onSelectedStore={handleOnSelectedStore}
-            selectedStore={gameQuery.store}
-          />
+           {/* <GenreList
+             onSelectedGenre={handleOnSelectedGenre}
+             selectedGenre={gameQuery.genre}
+           />
+           <StoreList
+             onSelectedStore={handleSelectedStore}
+             selectedStore={gameQuery.store}
+           /> */}
+           <CustomList
+             title="Genres"
+             onSelectedItem={handleSelectedGenre}
+             selectedItem={gameQuery.genre}
+             useDataHook={useGenres}
+           />
+           <CustomList
+             title="Stores"
+             onSelectedItem={handleOnSelectedStore}
+             selectedItem={gameQuery.store}
+             useDataHook={useStores}
+           />
         </GridItem>
       </Show>
       <GridItem pl="2" area={"main"}>
