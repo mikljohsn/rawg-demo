@@ -14,6 +14,7 @@ import GameHeading from "./components/GameHeading";
 
 
 
+
 export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
@@ -53,7 +54,8 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem pl="2" area={"aside"}>
-          <CustomList
+  
+           <CustomList
             title="Genres"
             onSelectedItem={handleSelectedGenre}
             selectedItem={gameQuery.genre}
@@ -64,7 +66,7 @@ function App() {
             onSelectedItem={handleOnSelectedStore}
             selectedItem={gameQuery.store}
             useDataHook={useStores}
-          />
+          /> 
         </GridItem>
       </Show>
       <GridItem pl="2" area={"main"}>

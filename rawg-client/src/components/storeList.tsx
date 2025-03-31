@@ -1,4 +1,4 @@
-
+/* 
 import { Image, List, ListItem, HStack, Heading, Spinner, Button } from "@chakra-ui/react";
 import useStores, { Store } from "../hooks/useStores";
 import getCroppedImageUrl from "../services/image-url";
@@ -52,4 +52,4 @@ const StoreList = ({ onSelectedStore, selectedStore }: Props) => {
   );
 };
 
-export default StoreList;
+export default StoreList; */

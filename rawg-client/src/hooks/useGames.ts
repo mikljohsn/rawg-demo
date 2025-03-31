@@ -1,6 +1,10 @@
-import useData from "./useData";
+
 import { Platform } from "./usePlatforms";
 import { GameQuery } from "../App";
+import { useQuery } from "@tanstack/react-query";
+import { Response } from "./useData";
+import apiClient from "../services/api-client";
+
 export interface Game {
   id: number;
   name: string;
@@ -9,10 +13,27 @@ export interface Game {
   metacritic: number;
 }
 
+
+
+const useGames = (gameQuery: GameQuery) => useQuery<Response<Game>, Error>({
+  queryKey: ["games", gameQuery],
+  queryFn: () => 
+    apiClient.get<Response<Game>>("/games", {
+      params: {
+        genres: gameQuery.genre?.slug,
+        parent_platforms: gameQuery.platform?.id,
+        stores: gameQuery.store?.id,
+        ordering: gameQuery.sortOrder,
+        search: gameQuery.searchText
+      }
+    })
+    .then((res) => res.data),
+});
+
 //useGames is a custom hook that fetches games from the /games endpoint
 //it takes an optional selectedGenre parameter to filter games by genre
 //it also takes an optional dependencies parameter to refetch data when the selectedGenre changes
-const useGames = (gameQuery: GameQuery) =>
+/* const useGames = (gameQuery: GameQuery) =>
   useData<Game>("/games", {
     params: {
       genres: gameQuery.genre?.slug,
@@ -22,5 +43,5 @@ const useGames = (gameQuery: GameQuery) =>
       search: gameQuery.searchText
     }
   },
-    [gameQuery]);
+    [gameQuery]); */
 export default useGames;
