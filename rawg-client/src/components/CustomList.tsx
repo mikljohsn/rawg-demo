@@ -31,13 +31,12 @@ const CustomList = <T extends Item>({
   title,
   useDataHook,
 }: Props<T>) => {
-
+  const [isExpanded, setIsExpanded] = useState(false);
   const { data, isLoading, error } = useDataHook();
-  const [isExpandeded, setIsExpanded] = useState(false);
 
   const items = data?.results;
 
-  const displayedItems = isExpandeded ? items : items?.slice(0, 5);
+  const displayedItems = isExpanded ? items : items?.slice(0, 5);
 
   if (error) return null;
 
@@ -59,8 +58,8 @@ const CustomList = <T extends Item>({
                 objectFit="cover"
               />
               <Button
-                textAlign={"left"}
-                whiteSpace={"normal"}
+                textAlign="left"
+                whiteSpace="normal"
                 colorScheme={selectedItemId === item.id ? "yellow" : "gray"}
                 variant="link"
                 fontSize="lg"
@@ -71,8 +70,8 @@ const CustomList = <T extends Item>({
             </HStack>
           </ListItem>
         ))}
-        <Button onClick={() => setIsExpanded(!isExpandeded)}>
-          {isExpandeded ? "Show less" : "Show more"}
+        <Button marginY="4" onClick={() => setIsExpanded(!isExpanded)}>
+          {isExpanded ? "Show less" : "Show more"}
         </Button>
       </List>
     </>

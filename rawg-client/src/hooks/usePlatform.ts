@@ -5,7 +5,6 @@ const usePlatform = (selectedPlatformId?: number) => {
   const selectedPlatform = data?.results?.find(
     (platform) => platform.id === selectedPlatformId
   );
-
   return selectedPlatform;
 };
 export default usePlatform;

@@ -11,7 +11,7 @@ export interface Platform {
 }
 
 
-const apiClient = new ApiClient<Platform>("/platforms"); //create an instance of the ApiClient with the endpoint /platforms
+const apiClient = new ApiClient<Platform>("/platforms/lists/parents"); //create an instance of the ApiClient with the endpoint
 
 
 const usePlatforms = () => useQuery<Response<Platform>, Error>({
