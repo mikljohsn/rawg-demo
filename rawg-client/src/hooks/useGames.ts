@@ -1,9 +1,9 @@
 
 import { Platform } from "./usePlatforms";
-import { GameQuery } from "../App";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Response } from "../services/api-client";
 import ApiClient from "../services/api-client";
+import useGameQueryStore from "../state";
 
 
 export interface Game {
@@ -17,8 +17,11 @@ export interface Game {
 const apiClient = new ApiClient<Game>("/games");
 
 
-const useGames = (gameQuery: GameQuery) =>
-  useInfiniteQuery<Response<Game>, Error>({
+const useGames = () => {
+
+  const gameQuery = useGameQueryStore((s) => s.gameQuery);
+
+  return useInfiniteQuery<Response<Game>, Error>({
   queryKey: ["games", gameQuery],
   queryFn: ({ pageParam=1 }) => 
     apiClient.getAll({
@@ -35,6 +38,7 @@ const useGames = (gameQuery: GameQuery) =>
       return lastPage.next ? allPages.length + 1 : undefined;
     }
 });
+}
 
 //useGames is a custom hook that fetches games from the /games endpoint
 //it takes an optional selectedGenre parameter to filter games by genre
