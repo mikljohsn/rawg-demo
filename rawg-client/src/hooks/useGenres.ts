@@ -3,6 +3,7 @@ import ApiClient from "../services/api-client";
 import { Response } from "../services/api-client";
 //import useData from "./useData";
 import genres from "../data/genres";
+import ms from "ms";
 
 
 export interface Genre {
@@ -22,8 +23,8 @@ const useGenres = () => useQuery<Response<Genre>, Error>({ //useQuery is a hook 
 
     queryKey: ["genres"],
     queryFn: apiClient.getAll,
-    staleTime: 1000 * 60 * 60 * 24, //set the stale time to 24 hours, so the data is fresh for 24 hours
-    cacheTime: 1000 * 60 * 60 * 24, //set the cache time to 24 hours, so the data is cached for 24 hours
+    staleTime: ms("1d"), 
+    cacheTime: ms("1d"), 
     initialData: genres
 })
 export default useGenres;

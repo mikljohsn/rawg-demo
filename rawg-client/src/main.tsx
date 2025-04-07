@@ -6,6 +6,7 @@ import theme from "./theme";
 import "./main.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ms from "ms";
 
 const queryClient = new QueryClient(
   {
@@ -15,8 +16,8 @@ const queryClient = new QueryClient(
         refetchOnWindowFocus: true,
         refetchOnReconnect: true,
         refetchOnMount: true,
-        staleTime: 5000,
-        cacheTime: 10000,
+        staleTime: ms("5s"),
+        cacheTime: ms("10s"),
       },
     },
   }
