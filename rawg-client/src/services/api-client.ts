@@ -24,5 +24,6 @@ class ApiClient<T> {
 export interface Response<T> {
   count: number;
   results: T[];
+  next: string | null;
 }
 export default ApiClient;
