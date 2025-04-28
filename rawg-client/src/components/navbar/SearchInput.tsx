@@ -1,7 +1,7 @@
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
 import { useRef } from 'react';
-import useGameQueryStore from '../state';
+import useGameQueryStore from '../../state';
 
 
 

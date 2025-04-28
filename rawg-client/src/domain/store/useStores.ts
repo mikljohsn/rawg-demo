@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import ApiClient from "../services/api-client";
-import { Response } from "../services/api-client";
-import stores from "../data/stores"; //import the stores data from the data folder
+import ApiClient from "../../services/api-client";
+import { Response } from "../../services/api-client";
+import stores from "./stores"; //import the stores data from the data folder
 import ms from "ms";
 
 

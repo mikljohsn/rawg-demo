@@ -1,11 +1,11 @@
 import { Box, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
-import GameGrid from "./components/GameGrid";
-import useGenres from "./hooks/useGenres";
-import PlatformSelector from "./components/PlatformSelector";
-import useStores from "./hooks/useStores";
+import GameGrid from "./domain/game/GameGrid";
+import useGenres from "./domain/genre/useGenres";
+import PlatformSelector from "./domain/platform/PlatformSelector";
+import useStores from "./domain/store/useStores";
 import CustomList from "./components/CustomList";
 import SortSelector from "./components/SortSelector";
-import GameHeading from "./components/GameHeading";
+import GameHeading from "./domain/game/GameHeading";
 import useGameQueryStore from "./state";
 
 function App() {

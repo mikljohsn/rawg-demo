@@ -16,6 +16,8 @@ import {
   
     @Column()
     name: string;
+
+    @Column()
   
     @Column({ nullable: true })
     metacritic?: number;

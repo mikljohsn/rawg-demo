@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { Response } from "../services/api-client";
-import ApiClient from "../services/api-client"; //import the apiClient to make the api calls
-import platforms from "../data/platforms"; //import the platforms data from the data folder
+import { Response } from "../../services/api-client"; //import the Response interface from the api-client to use it in the useQuery hook
+import ApiClient from "../../services/api-client"; //import the ApiClient class to use it in the useQuery hook
+import platforms from "./platforms";
 import ms from "ms";
 
 export interface Platform {
