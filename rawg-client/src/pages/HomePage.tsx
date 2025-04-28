@@ -1,17 +1,19 @@
 import { Box, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
-import GameGrid from "./components/GameGrid";
-import useGenres from "./hooks/useGenres";
-import PlatformSelector from "./components/PlatformSelector";
-import useStores from "./hooks/useStores";
-import CustomList from "./components/CustomList";
-import SortSelector from "./components/SortSelector";
-import GameHeading from "./components/GameHeading";
-import useGameQueryStore from "./state";
 
-function App() {
+import GameGrid from "../components/GameGrid";
+import useGenres from "../hooks/useGenres";
+import PlatformSelector from "../components/PlatformSelector";
+import useStores from "../hooks/useStores";
+import CustomList from "../components/CustomList";
+import SortSelector from "../components/SortSelector";
+import GameHeading from "../components/GameHeading";
+import useGameQueryStore from "../state";
+
+function HomePage() {
   const { genreId, storeId } = useGameQueryStore((s) => s.gameQuery);
   const setGenreId = useGameQueryStore((s) => s.setGenreId);
   const setStoreId = useGameQueryStore((s) => s.setStoreId);
+  
 
   return (
     <Grid
@@ -53,4 +55,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;
