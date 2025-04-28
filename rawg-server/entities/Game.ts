@@ -17,7 +17,8 @@ import {
     @Column()
     name: string;
 
-    @Column()
+    @Column({ type: "text", nullable: true })
+    description_raw?: string;
   
     @Column({ nullable: true })
     metacritic?: number;
