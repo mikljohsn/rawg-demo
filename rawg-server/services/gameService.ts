@@ -134,25 +134,45 @@ const modifyGameResponse = (games: Game[]) => {
 };
 
 export const getGames = async (req: any) => {
- const DEFAULT_PAGE_SIZE = 20;
- const DEFAULT_PAGE = 1;
+  const DEFAULT_PAGE_SIZE = 20;
+  const DEFAULT_PAGE = 1;
 
 
- const page = req.query.page ? Number(req.query.page) : DEFAULT_PAGE;
- const pageSize = req.query.page_size ? Number(req.query.page_size) : DEFAULT_PAGE_SIZE;
+  const page = req.query.page ? Number(req.query.page) : DEFAULT_PAGE;
+  const pageSize = req.query.page_size ? Number(req.query.page_size) : DEFAULT_PAGE_SIZE;
 
- const queryBuilder = buildGameQuery(req);
+  const queryBuilder = buildGameQuery(req);
 
- queryBuilder.skip((page - 1) * pageSize).take(pageSize); //skip the first (page - 1) * pageSize games
+  queryBuilder.skip((page - 1) * pageSize).take(pageSize); //skip the first (page - 1) * pageSize games
 
 
- const [games, total] = await queryBuilder.getManyAndCount(); //get the games and the total count of games
- const modifiedGames = modifyGameResponse(games); //modify the games to add the platform object
+  const [games, total] = await queryBuilder.getManyAndCount(); //get the games and the total count of games
+  const modifiedGames = modifyGameResponse(games); //modify the games to add the platform object
 
- return {
+  return {
     count: total,
-    next: total > page * pageSize ? `${process.env.SERVER_URL}/games?page=${page+1}&page_size=${pageSize}` : null, //if there are more pages, return the next page number
-    results: modifiedGames, 
- }
+    next: total > page * pageSize ? `${process.env.SERVER_URL}/games?page=${page + 1}&page_size=${pageSize}` : null, //if there are more pages, return the next page number
+    results: modifiedGames,
+  }
 
+};
+
+export const getGame = async (id: string) => {
+  const game = await gameRepository
+    .createQueryBuilder("game")
+    .leftJoinAndSelect("game.genres", "genres")
+    .leftJoinAndSelect("game.parent_platforms", "parent_platforms")
+    .leftJoinAndSelect("game.stores", "stores")
+    .where("game.id = :id", { id })
+    .getOne();
+    
+  if (!game) {
+    throw new Error("Game not found");
+  }
+  return {
+    ...game,
+    parent_platforms: game.parent_platforms?.map((parent_platform) => ({
+      platform: parent_platform,
+    })),
+  };
 };
