@@ -3,12 +3,7 @@ import { Response } from "../../services/api-client"; //import the Response inte
 import ApiClient from "../../services/api-client"; //import the ApiClient class to use it in the useQuery hook
 import platforms from "./platforms";
 import ms from "ms";
-
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string
-}
+import { Platform } from "./Platform"; //import the Platform interface from the Platform file
 
 
 const apiClient = new ApiClient<Platform>("/platforms/lists/parents"); //create an instance of the ApiClient with the endpoint

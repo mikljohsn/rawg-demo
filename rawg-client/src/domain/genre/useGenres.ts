@@ -4,14 +4,7 @@ import { Response } from "../../services/api-client";
 //import useData from "./useData";
 import genres from "./genres";
 import ms from "ms";
-
-
-export interface Genre {
-    id: number;
-    name: string;
-    slug: string;
-    image_background: string;
-}
+import { Genre } from "./Genre"; //import the Genre interface from the Genre file
 
 /* const useGenres = () =>  useData<Genre>("/genres"); //pass the endpoint to the useData hook to fetch the genres from the useGenres hook
 //cleaner solution to fetch genres from the useGenres hook, so we don't need to specify the endpoint in the component, 
